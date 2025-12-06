@@ -18,11 +18,11 @@ const Signup = ({}) => {
       </View>
       <View className="text-center mt-4 flex flex-row justify-center flex-wrap gap-x-1">
         <Text className="inline">By continuing, you agree to</Text>
-        <Link href="/login" className="underline">
+        <Link href="/auth/login" className="underline">
           Alcendar&apos;s Terms of Service
         </Link>
         <Text>and </Text>
-        <Link href="/login" className="underline">
+        <Link href="/auth/login" className="underline">
           Privacy Policy.
         </Link>
       </View>
