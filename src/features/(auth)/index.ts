@@ -1,5 +1,6 @@
 export * from './LoginBtn'
 export * from './SignupBtn'
-export * from './AuthForm'
+export * from './AuthCheckUsernameForm'
+export * from './AuthCheckPasswordForm'
 export * from './AuthBtnGoogle'
 export * from './AuthConfirmForm'

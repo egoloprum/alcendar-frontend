@@ -5,7 +5,7 @@ import React from 'react'
 export const LoginBtn = ({}) => {
   return (
     <Link href="/auth/login" asChild>
-      <Button title="Login" variant="secondary" />
+      <Button title="Already have an account" variant="secondary" />
     </Link>
   )
 }

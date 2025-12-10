@@ -9,10 +9,13 @@ import {
   TextStyle,
 } from 'react-native'
 
+import { LoaderCircle } from 'lucide-react'
+
 type ButtonProps = {
   title?: string
   onPress?: (event: GestureResponderEvent) => void
   disabled?: boolean
+  loading?: boolean
   variant?: 'primary' | 'secondary' | 'ghost'
   style?: StyleProp<ViewStyle>
   textStyle?: StyleProp<TextStyle>
@@ -23,6 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
   title,
   onPress,
   disabled = false,
+  loading = false,
   variant = 'primary',
   style,
   textStyle,
@@ -52,7 +56,9 @@ export const Button: React.FC<ButtonProps> = ({
       style={variantStyles}
       activeOpacity={0.8}
     >
-      {typeof content === 'string' || typeof content === 'number' ? (
+      {loading ? (
+        <LoaderCircle className="animate-spin" />
+      ) : typeof content === 'string' || typeof content === 'number' ? (
         <Text style={textVariantStyles as any}>{content}</Text>
       ) : (
         content

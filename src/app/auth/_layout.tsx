@@ -4,7 +4,9 @@ export default function LoginLayout() {
   return (
     <Stack>
       <Stack.Screen name="login" options={{ headerShown: false }} />
-      <Stack.Screen name="signup" options={{ headerShown: false }} />
+      <Stack.Screen name="(signup)/create-username" options={{ headerShown: false }} />
+      <Stack.Screen name="(signup)/create-password" options={{ headerShown: false }} />
+      <Stack.Screen name="(signup)/check-birthday" options={{ headerShown: false }} />
       <Stack.Screen name="confirm" options={{ headerShown: false }} />
     </Stack>
   )
