@@ -1,18 +1,18 @@
-import { AuthCheckPasswordForm, useSignup } from '@/src/features/(auth)'
+import { AuthCheckEmailForm, useSignup } from '@/src/features/(auth)'
 import { useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { View, Text, ActivityIndicator } from 'react-native'
 
-const CreatePassword = ({}) => {
+const CreateEmail = () => {
   const { data } = useSignup()
   const router = useRouter()
-  const [shouldRender, setShouldRender] = useState(false)
-
-  // use middleware
+  const [shouldRender, setShouldRender] = useState<boolean>(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!data.username) {
+      if (!data.password) {
+        router.replace('/auth/create-password')
+      } else if (!data.username) {
         router.replace('/auth/create-username')
       } else {
         setShouldRender(true)
@@ -20,7 +20,7 @@ const CreatePassword = ({}) => {
     }, 100)
 
     return () => clearTimeout(timer)
-  }, [data.username])
+  }, [data.username, data.password, router])
 
   if (!shouldRender) {
     return (
@@ -32,14 +32,13 @@ const CreatePassword = ({}) => {
 
   return (
     <View className="p-4 px-6 flex flex-col gap-4 w-full">
-      <Text className="text-xl font-bold">Create a password</Text>
+      <Text className="text-xl font-bold">What&apos;s your email?</Text>
       <Text className="text-base text-gray-600">
-        Create a password with at least 6 letters or numbers. It should be something others
-        can&apos;t guess.
+        Enter the email where you can be contacted. No one will see this on your profile.
       </Text>
-      <AuthCheckPasswordForm />
+      <AuthCheckEmailForm />
     </View>
   )
 }
 
-export default CreatePassword
+export default CreateEmail

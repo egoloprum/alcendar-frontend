@@ -2,102 +2,75 @@ import { Button, Input } from '@/src/shared/components'
 import React, { useState, useEffect } from 'react'
 import { View } from 'react-native'
 import { useQuery } from '@tanstack/react-query'
+import { useSignup } from './lib/SignupContext'
 import { useRouter } from 'expo-router'
 
 interface UsernameResponse {
   available: boolean
   message: string
-  username?: string
 }
 
 const useDebounce = <T,>(value: T, delay: number): T => {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+  const [debounced, setDebounced] = useState(value)
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
-
-    return () => {
-      clearTimeout(handler)
-    }
+    const id = setTimeout(() => setDebounced(value), delay)
+    return () => clearTimeout(id)
   }, [value, delay])
 
-  return debouncedValue
+  return debounced
 }
 
-export const AuthCheckUsernameForm = ({}) => {
+export const AuthCheckUsernameForm = () => {
   const [username, setUsername] = useState('')
-  const [error, setError] = useState<string>('')
   const debouncedUsername = useDebounce(username, 300)
 
-  const handleFetching = async () => {
-    if (!debouncedUsername || debouncedUsername.length < 3) {
-      return {
-        available: false,
-        message: 'Username must be at least 3 characters long',
-      }
-    }
-
-    const response = await fetch(`${process.env.EXPO_PUBLIC_BASE_URL}/auth/check-username`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: debouncedUsername }),
-    })
-
-    if (!response.ok) {
-      throw new Error('Failed to check username')
-    }
-
-    return response.json()
-  }
-
-  const {
-    data,
-    isLoading,
-    isError,
-    error: queryError,
-  } = useQuery<UsernameResponse>({
-    queryKey: ['checkUsername', debouncedUsername],
-    queryFn: handleFetching,
-    enabled: debouncedUsername.length >= 3,
-    retry: 1,
-    staleTime: 0,
-    gcTime: 0,
-  })
-
-  useEffect(() => {
-    if (isError && queryError) {
-      setError('Failed to check username. Please try again.')
-    } else if (data && !data.available) {
-      setError(data.message)
-    } else if (data && data.available) {
-      setError('')
-    }
-  }, [data, isError, queryError])
-
-  const handleUsernameCheck = (value: string) => {
-    setUsername(value)
-    if (error && value !== username) {
-      setError('')
-    }
-  }
-
-  const isButtonDisabled =
-    !username ||
-    username.length < 3 ||
-    isLoading ||
-    !data?.available ||
-    !!error ||
-    (data && !data.available)
-
+  const { update } = useSignup()
   const router = useRouter()
 
+  const sanitizeUsername = (raw: string) => raw.replace(/[^a-zA-Z0-9._]/g, '').replace(/^\.+/, '')
+
+  const handleChangeText = (text: string) => {
+    const sanitized = sanitizeUsername(text)
+    setUsername(sanitized)
+  }
+
+  const isValidUsername = debouncedUsername.length >= 5
+
+  const { data, isLoading, isError } = useQuery<UsernameResponse>({
+    queryKey: ['checkUsername', debouncedUsername],
+    enabled: isValidUsername,
+    queryFn: async () => {
+      const res = await fetch(`${process.env.EXPO_PUBLIC_BASE_URL}/auth/check-username`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: debouncedUsername }),
+      })
+
+      if (!res.ok) {
+        throw new Error('Request failed')
+      }
+
+      return res.json()
+    },
+  })
+
+  const errorMessage =
+    debouncedUsername.length === 0
+      ? ''
+      : !isValidUsername
+        ? 'Username must be at least 5 characters long'
+        : data && !data.available
+          ? data.message
+          : isError
+            ? 'Unable to validate username. Please try again.'
+            : ''
+
+  const isButtonDisabled = !isValidUsername || isLoading || !data?.available
+
   const handlePress = () => {
-    router.push({
-      pathname: '/auth/create-password',
-      params: { username: debouncedUsername },
-    })
+    update({ username })
+    router.push('/auth/create-password')
   }
 
   return (
@@ -106,14 +79,15 @@ export const AuthCheckUsernameForm = ({}) => {
         id="username"
         placeholder="Username"
         value={username}
-        onChangeText={handleUsernameCheck}
-        error={error}
+        onChangeText={handleChangeText}
+        error={errorMessage}
       />
+
       <Button
         title="Continue"
         variant="primary"
-        disabled={isButtonDisabled}
         loading={isLoading}
+        disabled={isButtonDisabled}
         onPress={handlePress}
       />
     </View>

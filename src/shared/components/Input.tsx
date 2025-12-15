@@ -25,7 +25,7 @@ export const Input: React.FC<InputProps> = ({
   textProps,
   type = 'text',
 }) => {
-  const [showPassword, setShowPassword] = React.useState<boolean>(true)
+  const [showPassword, setShowPassword] = React.useState<boolean>(type === 'text' ? false : true)
 
   const handlePress = () => {
     setShowPassword(!showPassword)
