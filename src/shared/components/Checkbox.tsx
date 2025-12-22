@@ -1,81 +1,50 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { Check } from 'lucide-react'
+import { cn } from '../utils'
 
-interface CheckboxProps {
+type CheckboxProps = {
   checked?: boolean
   onValueChange?: (checked: boolean) => void
-  title: string
+  label: string
   disabled?: boolean
+  className?: string
+  labelClassName?: string
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({
   checked = false,
   onValueChange,
-  title,
+  label,
   disabled = false,
+  className,
+  labelClassName,
 }) => {
-  const handlePress = () => {
-    if (!disabled && onValueChange) {
-      onValueChange(!checked)
+  const toggle = () => {
+    if (!disabled) {
+      onValueChange?.(!checked)
     }
   }
 
   return (
     <TouchableOpacity
-      style={[styles.container, disabled && styles.disabled]}
-      onPress={handlePress}
       activeOpacity={0.7}
+      onPress={toggle}
       disabled={disabled}
+      className={cn('flex-row items-center gap-3', disabled && 'opacity-60', className)}
     >
-      {/* Checkbox Square */}
-      <View style={[styles.checkbox, checked && styles.checkboxChecked]}>
-        {checked && <View style={styles.checkmark} />}
+      <View
+        className={cn(
+          'h-5 w-5 items-center justify-center rounded-md border-2',
+          checked ? 'border-blue-600 bg-blue-600' : 'border-gray-300 bg-transparent'
+        )}
+      >
+        {checked && <Check size={14} color="white" />}
       </View>
 
-      {/* Title */}
-      <Text style={[styles.title, disabled && styles.disabledTitle]}>{title}</Text>
+      <Text className={cn('text-base text-gray-900', disabled && 'text-gray-400', labelClassName)}>
+        {label}
+      </Text>
     </TouchableOpacity>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  checkbox: {
-    width: 20,
-    height: 20,
-    borderWidth: 2,
-    borderColor: '#D1D1D6',
-    borderRadius: 6,
-    marginRight: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-  },
-  checkboxChecked: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
-  },
-  checkmark: {
-    width: 8,
-    height: 12,
-    borderBottomWidth: 2,
-    borderRightWidth: 2,
-    borderColor: '#FFFFFF',
-    transform: [{ rotate: '45deg' }],
-    marginTop: -2,
-  },
-  title: {
-    fontSize: 16,
-    color: '#000000',
-    flex: 1,
-  },
-  disabled: {
-    opacity: 0.5,
-  },
-  disabledTitle: {
-    color: '#999999',
-  },
-})

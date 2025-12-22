@@ -4,7 +4,7 @@ import React from 'react'
 
 export const SignupBtn = ({}) => {
   return (
-    <Link href="/auth/create-username" asChild>
+    <Link href="/auth/signup" asChild>
       <Button title="Get started" variant="primary" />
     </Link>
   )

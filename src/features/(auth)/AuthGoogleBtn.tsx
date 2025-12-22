@@ -2,7 +2,7 @@ import { Button } from '@/src/shared/components'
 import React from 'react'
 import { Linking } from 'react-native'
 
-export const AuthBtnGoogle = ({}) => {
+export const AuthGoogleBtn = ({}) => {
   const handleClick = () => {
     const base = process.env.EXPO_PUBLIC_BASE_URL ?? ''
     const url = `${base}/auth/google`

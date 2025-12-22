@@ -1,100 +1,62 @@
 import React from 'react'
-import {
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  GestureResponderEvent,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-} from 'react-native'
+import { Text, TouchableOpacity, ActivityIndicator } from 'react-native'
+import type { GestureResponderEvent } from 'react-native'
+import { cn } from '../utils'
 
-import { LoaderCircle } from 'lucide-react'
+type ButtonVariant = 'primary' | 'secondary' | 'ghost'
 
 type ButtonProps = {
   title?: string
+  children?: React.ReactNode
   onPress?: (event: GestureResponderEvent) => void
   disabled?: boolean
   loading?: boolean
-  variant?: 'primary' | 'secondary' | 'ghost'
-  style?: StyleProp<ViewStyle>
-  textStyle?: StyleProp<TextStyle>
-  children?: React.ReactNode
+  variant?: ButtonVariant
+  className?: string
+  textClassName?: string
 }
 
 export const Button: React.FC<ButtonProps> = ({
   title,
+  children,
   onPress,
   disabled = false,
   loading = false,
   variant = 'primary',
-  style,
-  textStyle,
-  children,
+  className,
+  textClassName,
 }) => {
   const content = children ?? title
 
-  const variantStyles = [
-    styles.button,
-    variant === 'primary' && styles.primary,
-    variant === 'secondary' && styles.secondary,
-    variant === 'ghost' && styles.ghost,
-    disabled && styles.disabled,
-    style,
-  ]
-
-  const textVariantStyles = [
-    styles.text,
-    variant === 'secondary' && styles.textSecondary,
-    textStyle,
-  ]
-
   return (
     <TouchableOpacity
-      onPress={onPress}
-      disabled={disabled}
-      style={variantStyles}
       activeOpacity={0.8}
+      disabled={disabled || loading}
+      onPress={onPress}
+      className={cn(
+        'flex-row items-center justify-center rounded-lg px-4 py-2.5',
+        disabled && 'opacity-60',
+        variant === 'primary' && 'bg-blue-600',
+        variant === 'secondary' && 'bg-gray-200',
+        variant === 'ghost' && 'border border-gray-300 bg-transparent',
+        className
+      )}
     >
       {loading ? (
-        <LoaderCircle className="animate-spin" />
+        <ActivityIndicator size="small" color={variant === 'secondary' ? '#111827' : '#FFFFFF'} />
       ) : typeof content === 'string' || typeof content === 'number' ? (
-        <Text style={textVariantStyles as any}>{content}</Text>
+        <Text
+          className={cn(
+            'text-base font-semibold',
+            variant === 'secondary' || variant === 'ghost' ? 'text-gray-900' : 'text-white',
+            textClassName
+          )}
+        >
+          {content}
+        </Text>
       ) : (
         content
       )}
     </TouchableOpacity>
   )
 }
-
-const styles = StyleSheet.create({
-  button: {
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  primary: {
-    backgroundColor: '#2563EB',
-  },
-  secondary: {
-    backgroundColor: '#E5E7EB',
-  },
-  ghost: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-  },
-  disabled: {
-    opacity: 0.6,
-  },
-  text: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  textSecondary: {
-    color: '#111827',
-  },
-})
