@@ -6,6 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '@/src/shared/components'
 import { OtpFormValues, otpSchema } from './schemas/otp.schema'
 import { useVerifyOtp } from './hooks/useVerifyOtp'
+import { saveSession } from '@/src/shared/utils'
+import { useRouter } from 'expo-router'
 
 interface AuthOTPConfirmFormProps {
   email: string
@@ -22,13 +24,16 @@ export const AuthOTPConfirmForm = ({ email }: AuthOTPConfirmFormProps) => {
 
   const { mutate, isPending, error } = useVerifyOtp()
 
+  const router = useRouter()
+
   const onSubmit = (data: OtpFormValues) => {
     mutate(
       { email: email, token: data.token },
       {
-        onSuccess: () => {
+        onSuccess: async res => {
           console.log('Signup completed')
-          // navigate to app / login
+          await saveSession(res.session)
+          router.replace('/auth/create-username')
         },
       }
     )

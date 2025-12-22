@@ -7,3 +7,4 @@ export * from './AuthLoginForm'
 export * from './AuthSignupForm'
 
 export * from './AuthOTPConfirmForm'
+export * from './AuthSetUsernameForm'

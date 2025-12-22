@@ -27,7 +27,7 @@ export async function loginUser(payload: LoginPayload): Promise<LoginResponse> {
 
   if (!res.ok) {
     const error = await res.json()
-    throw new Error(error.message || 'Login failed')
+    throw new Error(error.error || 'Login failed')
   }
 
   return res.json()
