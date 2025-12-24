@@ -7,11 +7,15 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md}\""
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
     "@hookform/resolvers": "^5.2.2",
+    "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/elements": "^2.6.3",
     "@react-navigation/native": "^7.1.25",
@@ -27,6 +31,7 @@
     "expo-image": "~3.0.10",
     "expo-linking": "~8.0.8",
     "expo-router": "~6.0.13",
+    "expo-secure-store": "~15.0.8",
     "expo-splash-screen": "~31.0.10",
     "expo-status-bar": "~3.0.8",
     "expo-symbols": "~1.0.7",
@@ -46,9 +51,7 @@
     "react-native-web": "~0.21.0",
     "react-native-worklets": "^0.7.1",
     "tailwind-merge": "^3.4.0",
-    "tailwindcss": "^3.4.18",
-    "expo-secure-store": "~15.0.8",
-    "@react-native-async-storage/async-storage": "2.2.0"
+    "tailwindcss": "^3.4.18"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
@@ -56,6 +59,9 @@
     "@types/react-native": "^0.72.8",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.7.4",
     "typescript": "~5.9.2"
   },
   "private": true

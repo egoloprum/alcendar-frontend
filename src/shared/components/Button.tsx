@@ -24,7 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
   loading = false,
   variant = 'primary',
   className,
-  textClassName,
+  textClassName
 }) => {
   const content = children ?? title
 
@@ -40,8 +40,7 @@ export const Button: React.FC<ButtonProps> = ({
         variant === 'secondary' && 'bg-gray-200',
         variant === 'ghost' && 'border border-gray-300 bg-transparent',
         className
-      )}
-    >
+      )}>
       {loading ? (
         <ActivityIndicator size="small" color={variant === 'secondary' ? '#111827' : '#FFFFFF'} />
       ) : typeof content === 'string' || typeof content === 'number' ? (
@@ -50,8 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
             'text-base font-semibold',
             variant === 'secondary' || variant === 'ghost' ? 'text-gray-900' : 'text-white',
             textClassName
-          )}
-        >
+          )}>
           {content}
         </Text>
       ) : (

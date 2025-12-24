@@ -1,18 +1,17 @@
-import { API_AUTH_VERIFY_OTP } from '@/src/shared/utils'
+import { API_AUTH_RESEND_OTP } from '@/src/shared/utils'
 
-type VerifyOtpPayload = {
+type ResendOtpPayload = {
   email: string
-  token: string
 }
 
-export async function verifyOtp(payload: VerifyOtpPayload) {
-  const res = await fetch(API_AUTH_VERIFY_OTP, {
+export async function resendOtp(payload: ResendOtpPayload) {
+  const res = await fetch(API_AUTH_RESEND_OTP, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   })
 
-  console.log('API verifyOTP is fired!')
+  console.log('API resendOTP is fired!')
 
   if (!res.ok) {
     const err = await res.json()

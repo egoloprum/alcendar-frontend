@@ -11,19 +11,18 @@ export const AuthLoginForm = () => {
   const {
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors }
   } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginSchema)
   })
 
   const { mutate, isPending, error } = useLogin()
 
   const onSubmit = (data: LoginFormValues) => {
     mutate(data, {
-      onSuccess: res => {
+      onSuccess: async res => {
         console.log('Logged in:', res)
-        // save token, navigate, etc.
-      },
+      }
     })
   }
 
@@ -45,7 +44,7 @@ export const AuthLoginForm = () => {
         onChangeText={v => setValue('password', v)}
       />
 
-      {error && <Text className="text-red-500 text-sm">{error.message}</Text>}
+      {error && <Text className="text-sm text-red-500">{error.message}</Text>}
 
       <Button loading={isPending} onPress={handleSubmit(onSubmit)}>
         Sign in

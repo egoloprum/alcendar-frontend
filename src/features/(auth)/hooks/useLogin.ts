@@ -4,6 +4,6 @@ import { LoginFormValues } from '../schemas/login.schema'
 
 export function useLogin() {
   return useMutation({
-    mutationFn: (data: LoginFormValues) => loginUser(data),
+    mutationFn: (data: LoginFormValues) => loginUser(data)
   })
 }

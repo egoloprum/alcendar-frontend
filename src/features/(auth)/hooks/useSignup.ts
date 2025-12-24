@@ -4,6 +4,6 @@ import { SignupFormValues } from '../schemas/signup.schema'
 
 export function useSignup() {
   return useMutation({
-    mutationFn: (data: SignupFormValues) => signupUser(data),
+    mutationFn: (data: SignupFormValues) => signupUser(data)
   })
 }

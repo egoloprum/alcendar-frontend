@@ -18,7 +18,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   label,
   disabled = false,
   className,
-  labelClassName,
+  labelClassName
 }) => {
   const toggle = () => {
     if (!disabled) {
@@ -31,14 +31,12 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       activeOpacity={0.7}
       onPress={toggle}
       disabled={disabled}
-      className={cn('flex-row items-center gap-3', disabled && 'opacity-60', className)}
-    >
+      className={cn('flex-row items-center gap-3', disabled && 'opacity-60', className)}>
       <View
         className={cn(
           'h-5 w-5 items-center justify-center rounded-md border-2',
           checked ? 'border-blue-600 bg-blue-600' : 'border-gray-300 bg-transparent'
-        )}
-      >
+        )}>
         {checked && <Check size={14} color="white" />}
       </View>
 

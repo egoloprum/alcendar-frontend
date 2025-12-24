@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const CreateBirthday = () => {
+const AgeConfirmation = () => {
   return (
     <View>
-      <Text>CheckBirthday</Text>
+      <Text>Age confirmation</Text>
     </View>
   )
 }
 
-export default CreateBirthday
+export default AgeConfirmation

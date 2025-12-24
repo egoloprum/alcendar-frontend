@@ -9,8 +9,8 @@ const VerifyConfirmation = ({}) => {
   }>()
 
   return (
-    <View className="p-4 px-6 flex flex-col gap-4 w-full">
-      <Text className="text-xl font-bold">Sign up to Alcendar</Text>
+    <View className="flex w-full flex-col gap-4 p-4 px-6">
+      <Text className="text-3xl font-bold">6-digit code</Text>
       <AuthOTPConfirmForm email={email} />
     </View>
   )

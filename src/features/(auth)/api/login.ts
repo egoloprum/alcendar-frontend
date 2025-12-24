@@ -17,12 +17,12 @@ export async function loginUser(payload: LoginPayload): Promise<LoginResponse> {
   const res = await fetch(API_AUTH_LOGIN, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       email: payload.email,
-      password: hashPassword(payload.password),
-    }),
+      password: hashPassword(payload.password)
+    })
   })
 
   if (!res.ok) {

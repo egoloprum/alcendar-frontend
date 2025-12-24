@@ -7,14 +7,15 @@ import { Button, Input } from '@/src/shared/components'
 import { SignupFormValues, signupSchema } from './schemas/signup.schema'
 import { useSignup } from './hooks/useSignup'
 import { useRouter } from 'expo-router'
+import { removeSession } from '@/src/shared/utils'
 
 export const AuthSignupForm = () => {
   const {
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors }
   } = useForm<SignupFormValues>({
-    resolver: zodResolver(signupSchema),
+    resolver: zodResolver(signupSchema)
   })
 
   const { mutate, isPending, error } = useSignup()
@@ -24,13 +25,14 @@ export const AuthSignupForm = () => {
   const onSubmit = (data: SignupFormValues) => {
     mutate(data, {
       onSuccess: res => {
+        removeSession()
         router.push({
           pathname: '/auth/verify-confirmation',
           params: {
-            email: data.email,
-          },
+            email: data.email
+          }
         })
-      },
+      }
     })
   }
 
@@ -59,7 +61,7 @@ export const AuthSignupForm = () => {
         onChangeText={v => setValue('confirmPassword', v)}
       />
 
-      {error && <Text className="text-red-500 text-sm">{error.message}</Text>}
+      {error && <Text className="text-sm text-red-500">{error.message}</Text>}
 
       <Button loading={isPending} onPress={handleSubmit(onSubmit)}>
         Continue

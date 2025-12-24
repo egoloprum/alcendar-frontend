@@ -7,8 +7,8 @@ export async function signupUser(data: SignupFormValues) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       email: data.email,
-      password: hashPassword(data.password),
-    }),
+      password: hashPassword(data.password)
+    })
   })
 
   if (!res.ok) {
