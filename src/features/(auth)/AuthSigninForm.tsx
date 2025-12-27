@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { useForm } from 'react-hook-form'
 
 import { Button, Input } from '@/src/shared/components'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { signinUser } from './api/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SigninFormValues, SigninSchema } from './utils/schemas'
@@ -25,11 +25,12 @@ export const AuthSigninForm = () => {
   })
 
   const router = useRouter()
+  const queryClient = useQueryClient()
 
   const onSubmit = (data: SigninFormValues) => {
     mutation.mutate(data, {
-      onSuccess: () => {
-        // TODO: race condition error
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['auth', 'me'] })
         router.replace('/')
       }
     })
@@ -49,11 +50,11 @@ export const AuthSigninForm = () => {
         label="Password"
         placeholder="Password"
         type="password"
-        error={errors.password?.message}
+        error={errors.password?.message || mutation.error?.message}
         onChangeText={v => setValue('password', v)}
       />
 
-      {mutation.error && <Text className="text-sm text-red-500">{mutation.error.message}</Text>}
+      {/* {mutation.error && <Text className="text-sm text-red-500">{mutation.error.message}</Text>} */}
 
       <Button loading={mutation.isPending} onPress={handleSubmit(onSubmit)}>
         Sign in
