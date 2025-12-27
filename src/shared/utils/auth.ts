@@ -1,35 +1,65 @@
 import * as SecureStore from 'expo-secure-store'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Platform } from 'react-native'
-import { AuthSession } from '@/src/shared/types/session'
 
-const SESSION_KEY = 'USER_SESSION'
-const isWeb = Platform.OS === 'web' && typeof window !== 'undefined'
+const ACCESS_TOKEN_KEY = 'accessToken'
+const REFRESH_TOKEN_KEY = 'refreshToken'
 
-export async function saveSession(session: AuthSession): Promise<void> {
-  const value = JSON.stringify(session)
+export type AuthTokens = {
+  accessToken: string | null
+  refreshToken: string | null
+}
 
-  if (isWeb) {
-    await AsyncStorage.setItem(SESSION_KEY, value)
-  } else {
-    await SecureStore.setItemAsync(SESSION_KEY, value)
+const webStorage = {
+  setItem: async (key: string, value: string) => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem(key, value)
+    }
+  },
+  getItem: async (key: string): Promise<string | null> => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem(key)
+    }
+    return null
+  },
+  deleteItem: async (key: string) => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem(key)
+    }
   }
 }
 
-export async function getSession(): Promise<AuthSession | null> {
-  if (Platform.OS === 'web' && !isWeb) return null
-
-  const value = isWeb
-    ? await AsyncStorage.getItem(SESSION_KEY)
-    : await SecureStore.getItemAsync(SESSION_KEY)
-
-  return value ? (JSON.parse(value) as AuthSession) : null
+export const saveAuthTokens = async (accessToken: string, refreshToken: string): Promise<void> => {
+  if (Platform.OS === 'web') {
+    await webStorage.setItem(ACCESS_TOKEN_KEY, accessToken)
+    await webStorage.setItem(REFRESH_TOKEN_KEY, refreshToken)
+  } else {
+    await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, accessToken)
+    await SecureStore.setItemAsync(REFRESH_TOKEN_KEY, refreshToken)
+  }
 }
 
-export async function removeSession(): Promise<void> {
-  if (isWeb) {
-    await AsyncStorage.removeItem(SESSION_KEY)
+export const getAuthTokens = async (): Promise<AuthTokens> => {
+  if (Platform.OS === 'web') {
+    const accessToken = await webStorage.getItem(ACCESS_TOKEN_KEY)
+    const refreshToken = await webStorage.getItem(REFRESH_TOKEN_KEY)
+    return { accessToken, refreshToken }
   } else {
-    await SecureStore.deleteItemAsync(SESSION_KEY)
+    const accessToken = await SecureStore.getItemAsync(ACCESS_TOKEN_KEY)
+    const refreshToken = await SecureStore.getItemAsync(REFRESH_TOKEN_KEY)
+    return { accessToken, refreshToken }
+  }
+}
+
+export const removeAuthTokens = async (): Promise<void> => {
+  if (Platform.OS === 'web') {
+    await Promise.all([
+      webStorage.deleteItem(ACCESS_TOKEN_KEY),
+      webStorage.deleteItem(REFRESH_TOKEN_KEY)
+    ])
+  } else {
+    await Promise.all([
+      SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY),
+      SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY)
+    ])
   }
 }

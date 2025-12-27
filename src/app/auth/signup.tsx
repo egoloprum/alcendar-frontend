@@ -10,11 +10,11 @@ const Signup = ({}) => {
       <AuthSignupForm />
       <View className="mt-4 flex flex-row flex-wrap justify-center gap-x-1 text-center">
         <Text className="inline">By continuing, you agree to</Text>
-        <Link href="/auth/login" className="underline">
+        <Link href="/auth/signin" className="underline">
           Alcendar&apos;s Terms of Service
         </Link>
         <Text>and </Text>
-        <Link href="/auth/login" className="underline">
+        <Link href="/auth/signin" className="underline">
           Privacy Policy.
         </Link>
       </View>

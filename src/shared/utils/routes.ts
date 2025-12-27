@@ -1,6 +1,0 @@
-export const API_AUTH_LOGIN = process.env.EXPO_PUBLIC_BASE_URL + '/auth/signin'
-export const API_AUTH_SIGNUP = process.env.EXPO_PUBLIC_BASE_URL + '/auth/signup'
-export const API_AUTH_VERIFY_OTP = process.env.EXPO_PUBLIC_BASE_URL + '/auth/otp/verify'
-export const API_AUTH_RESEND_OTP = process.env.EXPO_PUBLIC_BASE_URL + '/auth/otp/resend'
-export const API_AUTH_CHECK_USERNAME = process.env.EXPO_PUBLIC_BASE_URL + '/auth/check-username'
-export const API_AUTH_CREATE_USERNAME = process.env.EXPO_PUBLIC_BASE_URL + '/auth/create-username'

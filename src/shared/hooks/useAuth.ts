@@ -1,23 +1,36 @@
-import { useEffect, useState } from 'react'
-import { getSession } from '../utils/auth'
-import { useRouter } from 'expo-router'
+import { useQuery } from '@tanstack/react-query'
+import { api, getAuthTokens } from '../utils'
 
-type ReplaceTarget = Parameters<ReturnType<typeof useRouter>['replace']>[0]
+interface User {
+  id: string
+  email: string
+}
 
-export function useAuth(redirectTo: ReplaceTarget = '/auth/login') {
-  const router = useRouter()
-  const [loading, setLoading] = useState(true)
+export function useAuth() {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['auth', 'me'],
+    queryFn: async (): Promise<User | null> => {
+      const { accessToken, refreshToken } = await getAuthTokens()
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const session = await getSession()
-      if (!session) {
-        router.replace(redirectTo)
-      }
-      setLoading(false)
-    }
-    checkAuth()
-  }, [])
+      if (!accessToken && !refreshToken) return null
 
-  return { loading }
+      const response = await api.get<{ user: User }>('/auth/me', {
+        headers: {
+          Authorization: accessToken ? `Bearer ${accessToken}` : '',
+          'x-refresh-token': refreshToken ?? ''
+        }
+      })
+
+      return response.user
+    },
+    retry: false,
+    staleTime: 5 * 60 * 1000
+  })
+
+  return {
+    user: data ?? null,
+    isLoading,
+    isAuthenticated: !!data,
+    isError
+  }
 }

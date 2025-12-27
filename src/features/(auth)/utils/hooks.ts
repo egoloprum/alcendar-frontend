@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { useState, useEffect } from 'react'
-import { resendOtp } from '../api/resend'
+import { resendOtp } from '../api/auth'
 
 const RESEND_DELAY = 59
 

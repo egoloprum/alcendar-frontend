@@ -1,4 +1,3 @@
 export * from './cn'
-export * from './routes'
-export * from './password'
+export * from './fetch-wrapper'
 export * from './auth'

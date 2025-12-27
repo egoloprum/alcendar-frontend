@@ -3,25 +3,34 @@ import { View, Text } from 'react-native'
 import { useForm } from 'react-hook-form'
 
 import { Button, Input } from '@/src/shared/components'
-import { LoginFormValues, loginSchema } from './schemas/login.schema'
-import { useLogin } from './hooks/useLogin'
+import { useMutation } from '@tanstack/react-query'
+import { signinUser } from './api/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { SigninFormValues, SigninSchema } from './utils/schemas'
+import { useRouter } from 'expo-router'
 
-export const AuthLoginForm = () => {
+export const AuthSigninForm = () => {
   const {
     handleSubmit,
     setValue,
     formState: { errors }
-  } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema)
+  } = useForm<SigninFormValues>({
+    resolver: zodResolver(SigninSchema)
   })
 
-  const { mutate, isPending, error } = useLogin()
+  const mutation = useMutation({
+    mutationFn: (payload: SigninFormValues) => {
+      return signinUser(payload)
+    }
+  })
 
-  const onSubmit = (data: LoginFormValues) => {
-    mutate(data, {
-      onSuccess: async res => {
-        console.log('Logged in:', res)
+  const router = useRouter()
+
+  const onSubmit = (data: SigninFormValues) => {
+    mutation.mutate(data, {
+      onSuccess: () => {
+        // TODO: race condition error
+        router.replace('/')
       }
     })
   }
@@ -44,9 +53,9 @@ export const AuthLoginForm = () => {
         onChangeText={v => setValue('password', v)}
       />
 
-      {error && <Text className="text-sm text-red-500">{error.message}</Text>}
+      {mutation.error && <Text className="text-sm text-red-500">{mutation.error.message}</Text>}
 
-      <Button loading={isPending} onPress={handleSubmit(onSubmit)}>
+      <Button loading={mutation.isPending} onPress={handleSubmit(onSubmit)}>
         Sign in
       </Button>
     </View>

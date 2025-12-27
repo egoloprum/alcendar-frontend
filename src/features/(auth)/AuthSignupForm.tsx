@@ -4,10 +4,11 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Button, Input } from '@/src/shared/components'
-import { SignupFormValues, signupSchema } from './schemas/signup.schema'
-import { useSignup } from './hooks/useSignup'
+
 import { useRouter } from 'expo-router'
-import { removeSession } from '@/src/shared/utils'
+import { SignupFormValues, SignupSchema } from './utils/schemas'
+import { useMutation } from '@tanstack/react-query'
+import { signupUser } from './api/auth'
 
 export const AuthSignupForm = () => {
   const {
@@ -15,24 +16,26 @@ export const AuthSignupForm = () => {
     setValue,
     formState: { errors }
   } = useForm<SignupFormValues>({
-    resolver: zodResolver(signupSchema)
+    resolver: zodResolver(SignupSchema)
   })
 
-  const { mutate, isPending, error } = useSignup()
+  const mutation = useMutation({
+    mutationFn: (payload: SignupFormValues) => {
+      return signupUser(payload)
+    }
+  })
 
   const router = useRouter()
 
   const onSubmit = (data: SignupFormValues) => {
-    mutate(data, {
-      onSuccess: res => {
-        removeSession()
+    mutation.mutate(data, {
+      onSuccess: () =>
         router.push({
           pathname: '/auth/verify-confirmation',
           params: {
             email: data.email
           }
         })
-      }
     })
   }
 
@@ -61,9 +64,9 @@ export const AuthSignupForm = () => {
         onChangeText={v => setValue('confirmPassword', v)}
       />
 
-      {error && <Text className="text-sm text-red-500">{error.message}</Text>}
+      {mutation.error && <Text className="text-sm text-red-500">{mutation.error.message}</Text>}
 
-      <Button loading={isPending} onPress={handleSubmit(onSubmit)}>
+      <Button loading={mutation.isPending} onPress={handleSubmit(onSubmit)}>
         Continue
       </Button>
     </View>

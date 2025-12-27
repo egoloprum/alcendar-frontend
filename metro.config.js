@@ -3,4 +3,6 @@ const { withNativeWind } = require('nativewind/metro')
 
 const config = getDefaultConfig(__dirname)
 
+config.resolver.assetExts = [...config.resolver.assetExts, 'woff', 'woff2', 'eot', 'ttf', 'otf']
+
 module.exports = withNativeWind(config, { input: './src/app/global.css' })

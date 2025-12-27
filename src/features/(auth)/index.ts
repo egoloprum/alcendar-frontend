@@ -1,10 +1,9 @@
-export * from './LoginBtn'
+export * from './SigninBtn'
 export * from './SignupBtn'
-export * from './GoToWhereWasLeftOnBtn'
 
 export * from './AuthGoogleBtn'
 
-export * from './AuthLoginForm'
+export * from './AuthSigninForm'
 export * from './AuthSignupForm'
 
 export * from './AuthOTPConfirmForm'

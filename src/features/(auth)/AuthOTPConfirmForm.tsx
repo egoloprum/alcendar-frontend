@@ -5,10 +5,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'expo-router'
 
 import { Button, Input } from '@/src/shared/components'
-import { OtpFormValues, otpSchema } from './schemas/otp.schema'
-import { useVerifyOtp } from './hooks/useVerifyOtp'
-import { saveSession } from '@/src/shared/utils'
-import { useResendOtp } from './hooks/useResendOtp'
+import { OtpFormValues, OtpSchema } from './utils/schemas'
+import { useResendOtp } from './utils/hooks'
+import { verifyOtp } from './api/auth'
+import { useMutation } from '@tanstack/react-query'
 
 interface AuthOTPConfirmFormProps {
   email: string
@@ -22,13 +22,20 @@ export const AuthOTPConfirmForm = ({ email }: AuthOTPConfirmFormProps) => {
     setValue,
     formState: { errors }
   } = useForm<OtpFormValues>({
-    resolver: zodResolver(otpSchema)
+    defaultValues: {
+      email: email
+    },
+    resolver: zodResolver(OtpSchema)
   })
 
   const [otp, setOtp] = useState<string[]>(Array(OTP_LENGTH).fill(''))
   const inputsRef = useRef<TextInput[]>([])
 
-  const { mutate, isPending, error } = useVerifyOtp()
+  const mutation = useMutation({
+    mutationFn: (payload: OtpFormValues) => {
+      return verifyOtp(payload)
+    }
+  })
   const { resendOtp, canResend, secondsLeft } = useResendOtp()
 
   const router = useRouter()
@@ -72,21 +79,10 @@ export const AuthOTPConfirmForm = ({ email }: AuthOTPConfirmFormProps) => {
   }
 
   const onSubmit = (data: OtpFormValues) => {
-    mutate(
+    mutation.mutate(
       { email, token: data.token },
       {
-        onSuccess: async res => {
-          await saveSession({
-            access_token: res.session.access_token,
-            refresh_token: res.session.refresh_token,
-            expires_at: res.session.expires_at,
-            user: {
-              id: res.user.id,
-              email: res.user.email
-            }
-          })
-          router.replace('/auth/age-confirmation')
-        }
+        onSuccess: () => router.replace('/auth/age-confirmation')
       }
     )
   }
@@ -123,7 +119,7 @@ export const AuthOTPConfirmForm = ({ email }: AuthOTPConfirmFormProps) => {
         ))}
       </View>
 
-      {error && <Text className="text-sm text-red-500">{error.message}</Text>}
+      {mutation.error && <Text className="text-sm text-red-500">{mutation.error.message}</Text>}
 
       <View className="flex-row items-center gap-2">
         {canResend ? (
@@ -137,7 +133,7 @@ export const AuthOTPConfirmForm = ({ email }: AuthOTPConfirmFormProps) => {
         )}
       </View>
 
-      <Button loading={isPending} onPress={handleSubmit(onSubmit)}>
+      <Button loading={mutation.isPending} onPress={handleSubmit(onSubmit)}>
         Verify
       </Button>
     </View>

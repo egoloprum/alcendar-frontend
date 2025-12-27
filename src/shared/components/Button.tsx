@@ -46,10 +46,11 @@ export const Button: React.FC<ButtonProps> = ({
       ) : typeof content === 'string' || typeof content === 'number' ? (
         <Text
           className={cn(
-            'text-base font-semibold',
+            'text-base font-semibold uppercase',
             variant === 'secondary' || variant === 'ghost' ? 'text-gray-900' : 'text-white',
             textClassName
-          )}>
+          )}
+          style={{ fontFamily: 'Gliker-Regular' }}>
           {content}
         </Text>
       ) : (
