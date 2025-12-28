@@ -12,18 +12,18 @@ export type AuthTokens = {
 const webStorage = {
   setItem: async (key: string, value: string) => {
     if (typeof window !== 'undefined') {
-      sessionStorage.setItem(key, value)
+      localStorage.setItem(key, value)
     }
   },
   getItem: async (key: string): Promise<string | null> => {
     if (typeof window !== 'undefined') {
-      return sessionStorage.getItem(key)
+      return localStorage.getItem(key)
     }
     return null
   },
   deleteItem: async (key: string) => {
     if (typeof window !== 'undefined') {
-      sessionStorage.removeItem(key)
+      localStorage.removeItem(key)
     }
   }
 }
