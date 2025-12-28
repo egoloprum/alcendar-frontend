@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native'
 import { SignupBtn, SigninBtn } from '@/src/features/(auth)'
-import { useAuth } from '../shared/hooks/useAuth'
+import { useAuth } from '../shared/hooks'
+import { Redirect } from 'expo-router'
 
 export default function Index() {
   const { user, isLoading } = useAuth()
@@ -10,11 +11,7 @@ export default function Index() {
   }
 
   if (user) {
-    return (
-      <View className="h-full space-y-4">
-        <Text>Hello world {user.email}</Text>
-      </View>
-    )
+    return <Redirect href="/(tabs)" />
   }
 
   return (
