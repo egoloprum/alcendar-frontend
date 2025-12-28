@@ -82,60 +82,61 @@ export const AuthOTPConfirmForm = ({ email }: AuthOTPConfirmFormProps) => {
     mutation.mutate(
       { email, token: data.token },
       {
-        onSuccess: () => router.replace('/auth/age-confirmation')
+        onSuccess: () => router.replace('/initial-settings/age-confirmation')
       }
     )
   }
 
   return (
-    <View className="w-full gap-4">
-      <Text className="text-sm text-gray-600">Enter the code sent to {email}</Text>
-
-      <View className="flex max-w-[400px] flex-row gap-2">
-        {otp.map((digit, index) => (
-          <React.Fragment key={index}>
-            {index === 3 && (
-              <View className="flex w-1 items-center justify-center">
-                <Text>-</Text>
-              </View>
-            )}
-
-            <Input
-              ref={ref => {
-                if (ref) inputsRef.current[index] = ref
-              }}
-              value={digit}
-              keyboardType="number-pad"
-              maxLength={1}
-              error={errors.token?.message}
-              onChangeText={v => handleChange(v, index)}
-              onKeyPress={({ nativeEvent }) => handleKeyPress(nativeEvent.key, index)}
-              inputClassName="text-center"
-              containerClassName="aspect-square max-w-10"
-              textContentType="oneTimeCode"
-              autoComplete="sms-otp"
-            />
-          </React.Fragment>
-        ))}
+    <View className="w-full gap-8">
+      <View className="gap-4">
+        <Text className="text-base text-gray-600" style={{ fontFamily: 'Gliker-Regular' }}>
+          Enter the code sent to {email}
+        </Text>
+        <View className="flex max-w-[400px] flex-row flex-wrap gap-2">
+          {otp.map((digit, index) => (
+            <React.Fragment key={index}>
+              <Input
+                ref={ref => {
+                  if (ref) inputsRef.current[index] = ref
+                }}
+                value={digit}
+                keyboardType="number-pad"
+                maxLength={1}
+                error={errors.token?.message}
+                onChangeText={v => handleChange(v, index)}
+                onKeyPress={({ nativeEvent }) => handleKeyPress(nativeEvent.key, index)}
+                inputClassName="text-center max-h-10 max-w-10 aspect-square"
+                containerClassName="aspect-square max-w-11"
+                textContentType="oneTimeCode"
+                autoComplete="sms-otp"
+              />
+            </React.Fragment>
+          ))}
+        </View>
       </View>
 
-      {mutation.error && <Text className="text-sm text-red-500">{mutation.error.message}</Text>}
+      {mutation.error && (
+        <Text
+          className="text-base uppercase tracking-widest text-red-400"
+          style={{ fontFamily: 'Gliker-Regular' }}>
+          {mutation.error.message}
+        </Text>
+      )}
 
-      <View className="flex-row items-center gap-2">
-        {canResend ? (
-          <Text className="text-sm text-blue-600" onPress={() => resendOtp(email)}>
-            Resend code
+      <View className="gap-4">
+        <Button loading={mutation.isPending} onPress={handleSubmit(onSubmit)}>
+          Verify
+        </Button>
+
+        <Button variant="ghost" disabled={!canResend} onPress={() => resendOtp(email)}>
+          <Text
+            className="text-base font-semibold uppercase tracking-widest"
+            style={{ fontFamily: 'Gliker-Regular' }}>
+            Resend code {!canResend && `in 00:${String(secondsLeft).padStart(2, '0')}`}
           </Text>
-        ) : (
-          <Text className="text-sm text-gray-500">
-            Resend code in 00:{String(secondsLeft).padStart(2, '0')}
-          </Text>
-        )}
+        </Button>
       </View>
-
-      <Button loading={mutation.isPending} onPress={handleSubmit(onSubmit)}>
-        Verify
-      </Button>
     </View>
   )
 }

@@ -1,5 +1,5 @@
 import { Button } from '@/src/shared/components'
-import { ReceiptText } from 'lucide-react'
+import { ReceiptText } from 'lucide-react-native'
 import { View, Text } from 'react-native'
 
 const AgeConfirmation = () => {

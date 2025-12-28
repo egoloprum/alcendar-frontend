@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 import { useForm } from 'react-hook-form'
 
 import { Button, Input } from '@/src/shared/components'
@@ -37,24 +37,32 @@ export const AuthSigninForm = () => {
   }
 
   return (
-    <View className="w-full gap-4">
-      <Input
-        label="Email"
-        placeholder="Email"
-        keyboardType="email-address"
-        error={errors.email?.message}
-        onChangeText={v => setValue('email', v)}
-      />
+    <View className="w-full gap-8">
+      <View className="gap-4">
+        <Input
+          label="Email"
+          placeholder="Email"
+          keyboardType="email-address"
+          error={errors.email?.message}
+          onChangeText={v => setValue('email', v)}
+        />
 
-      <Input
-        label="Password"
-        placeholder="Password"
-        type="password"
-        error={errors.password?.message || mutation.error?.message}
-        onChangeText={v => setValue('password', v)}
-      />
+        <Input
+          label="Password"
+          placeholder="Password"
+          type="password"
+          error={errors.password?.message}
+          onChangeText={v => setValue('password', v)}
+        />
+      </View>
 
-      {/* {mutation.error && <Text className="text-sm text-red-500">{mutation.error.message}</Text>} */}
+      {mutation.error && (
+        <Text
+          className="text-base uppercase tracking-widest text-red-400"
+          style={{ fontFamily: 'Gliker-Regular' }}>
+          {mutation.error.message}
+        </Text>
+      )}
 
       <Button loading={mutation.isPending} onPress={handleSubmit(onSubmit)}>
         Sign in

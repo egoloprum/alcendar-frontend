@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { Check } from 'lucide-react'
+import { Check } from 'lucide-react-native'
 import { cn } from '../utils'
 
 type CheckboxProps = {

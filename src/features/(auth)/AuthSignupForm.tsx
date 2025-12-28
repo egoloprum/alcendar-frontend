@@ -40,31 +40,39 @@ export const AuthSignupForm = () => {
   }
 
   return (
-    <View className="w-full gap-4">
-      <Input
-        label="Email"
-        placeholder="Email"
-        error={errors.email?.message}
-        onChangeText={v => setValue('email', v)}
-      />
+    <View className="w-full gap-8">
+      <View className="gap-4">
+        <Input
+          label="Email"
+          placeholder="Email"
+          error={errors.email?.message}
+          onChangeText={v => setValue('email', v)}
+        />
 
-      <Input
-        label="Password"
-        placeholder="Password"
-        type="password"
-        error={errors.password?.message}
-        onChangeText={v => setValue('password', v)}
-      />
+        <Input
+          label="Password"
+          placeholder="Password"
+          type="password"
+          error={errors.password?.message}
+          onChangeText={v => setValue('password', v)}
+        />
 
-      <Input
-        label="Confirm password"
-        placeholder="Confirm password"
-        type="password"
-        error={errors.confirmPassword?.message}
-        onChangeText={v => setValue('confirmPassword', v)}
-      />
+        <Input
+          label="Confirm password"
+          placeholder="Confirm password"
+          type="password"
+          error={errors.confirmPassword?.message}
+          onChangeText={v => setValue('confirmPassword', v)}
+        />
+      </View>
 
-      {mutation.error && <Text className="text-sm text-red-500">{mutation.error.message}</Text>}
+      {mutation.error && (
+        <Text
+          className="text-base uppercase tracking-widest text-red-400"
+          style={{ fontFamily: 'Gliker-Regular' }}>
+          {mutation.error.message}
+        </Text>
+      )}
 
       <Button loading={mutation.isPending} onPress={handleSubmit(onSubmit)}>
         Continue

@@ -1,6 +1,6 @@
-import React, { forwardRef } from 'react'
+import { forwardRef, useState } from 'react'
 import { View, Text, TextInput, TextInputProps, TouchableOpacity } from 'react-native'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react-native'
 import { cn } from '../utils'
 
 type InputProps = {
@@ -31,15 +31,21 @@ export const Input = forwardRef<TextInput, InputProps>(
     },
     ref
   ) => {
-    const [secure, setSecure] = React.useState(type === 'password')
+    const [secure, setSecure] = useState<boolean>(type === 'password' ? true : false)
 
     return (
-      <View className={cn('w-full space-y-1', containerClassName)}>
-        {label && <Text className="text-xs text-gray-600">{label}</Text>}
+      <View className={cn('w-full gap-1', containerClassName)}>
+        {label && (
+          <Text
+            className="ml-4 text-base tracking-widest text-gray-600"
+            style={{ fontFamily: 'Gliker-Regular' }}>
+            {label}
+          </Text>
+        )}
 
         <View
           className={cn(
-            'flex-row items-center rounded-md border',
+            'flex h-12 flex-row items-center justify-between rounded-full border-2 focus:border-gray-500',
             error ? 'border-red-500' : 'border-gray-300',
             disabled && 'opacity-60'
           )}>
@@ -52,18 +58,32 @@ export const Input = forwardRef<TextInput, InputProps>(
             editable={!disabled}
             secureTextEntry={secure}
             placeholderTextColor="#9CA3AF"
-            className={cn('w-full px-2 py-2 text-base text-gray-900', inputClassName)}
+            className={cn(
+              'h-full flex-1 rounded-full p-2 text-base tracking-widest text-gray-900',
+              label && 'px-4',
+              inputClassName
+            )}
+            style={{ fontFamily: 'Gliker-Regular' }}
             {...props}
           />
 
           {type === 'password' && (
-            <TouchableOpacity onPress={() => setSecure(!secure)} className="px-2 py-2" hitSlop={10}>
+            <TouchableOpacity
+              onPress={() => setSecure(!secure)}
+              className="rounded-full px-4"
+              hitSlop={10}>
               {secure ? <Eye size={20} color="#6B7280" /> : <EyeOff size={20} color="#6B7280" />}
             </TouchableOpacity>
           )}
         </View>
 
-        {error && <Text className="text-xs text-red-500">{error}</Text>}
+        {error && (
+          <Text
+            className="ml-4 text-base tracking-widest text-red-500"
+            style={{ fontFamily: 'Gliker-Regular' }}>
+            {error}
+          </Text>
+        )}
       </View>
     )
   }
