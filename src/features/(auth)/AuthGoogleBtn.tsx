@@ -1,6 +1,7 @@
-import { Button } from '@/src/shared/components'
 import React from 'react'
 import { Linking } from 'react-native'
+
+import { Button } from '@/src/shared/components'
 
 export const AuthGoogleBtn = ({}) => {
   const handleClick = () => {

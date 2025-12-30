@@ -1,7 +1,8 @@
-import { UserSearchDeleteBtn } from '@/src/features/(user)'
-import { useUserSearchContext } from '@/src/shared/utils/contexts'
 import { Search } from 'lucide-react-native'
 import { View, Text, ScrollView, FlatList } from 'react-native'
+
+import { UserSearchDeleteBtn } from '@/src/features/(user)'
+import { useUserSearchContext } from '@/src/shared/utils/contexts'
 
 export const UserSearchList = () => {
   const { users, searchParam } = useUserSearchContext()

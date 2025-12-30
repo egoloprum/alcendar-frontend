@@ -1,8 +1,9 @@
-import { useAuthContext } from '@/src/shared/utils/contexts'
 import { Link, Redirect, Tabs } from 'expo-router'
 import { Bell, CirclePlus, House, Search, User, Settings } from 'lucide-react-native'
 import React from 'react'
 import { Text } from 'react-native'
+
+import { useAuthContext } from '@/src/shared/utils/contexts'
 
 export default function TabsLayout() {
   const { isAuthenticated, isLoading } = useAuthContext()

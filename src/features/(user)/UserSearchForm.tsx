@@ -1,8 +1,8 @@
-import { Input } from '@/src/shared/components'
 import { Search } from 'lucide-react-native'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useEffect } from 'react'
+import { Input } from '@/src/shared/components'
 import { useUserSearchContext } from '@/src/shared/utils/contexts'
 import { useDebounce } from '@/src/shared/utils/hooks'
 

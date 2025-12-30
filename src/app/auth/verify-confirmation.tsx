@@ -1,7 +1,8 @@
-import { AuthOTPConfirmForm } from '@/src/features/(auth)'
 import { useLocalSearchParams } from 'expo-router'
 import React from 'react'
 import { View, Text } from 'react-native'
+
+import { AuthOTPConfirmForm } from '@/src/features/(auth)'
 
 const VerifyConfirmation = ({}) => {
   const { email } = useLocalSearchParams<{

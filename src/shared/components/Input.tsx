@@ -1,6 +1,7 @@
+import { Eye, EyeOff } from 'lucide-react-native'
 import { forwardRef, useState } from 'react'
 import { View, Text, TextInput, TextInputProps, TouchableOpacity } from 'react-native'
-import { Eye, EyeOff } from 'lucide-react-native'
+
 import { cn } from '../utils'
 
 type InputProps = {

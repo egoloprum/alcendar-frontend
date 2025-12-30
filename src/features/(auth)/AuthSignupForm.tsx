@@ -1,14 +1,14 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'expo-router'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { View, Text } from 'react-native'
 
 import { Button, Input } from '@/src/shared/components'
 
-import { useRouter } from 'expo-router'
-import { SignupFormValues, SignupSchema } from './utils/schemas'
-import { useMutation } from '@tanstack/react-query'
 import { signupUser } from './api/auth'
+import { SignupFormValues, SignupSchema } from './utils/schemas'
 
 export const AuthSignupForm = () => {
   const {

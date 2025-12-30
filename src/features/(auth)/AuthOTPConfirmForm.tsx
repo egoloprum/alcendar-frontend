@@ -1,14 +1,15 @@
-import React, { useRef, useState } from 'react'
-import { View, Text, TextInput } from 'react-native'
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
+import React, { useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { View, Text, TextInput } from 'react-native'
 
 import { Button, Input } from '@/src/shared/components'
-import { OtpFormValues, OtpSchema } from './utils/schemas'
-import { useResendOtp } from './utils/hooks'
+
 import { verifyOtp } from './api/auth'
-import { useMutation } from '@tanstack/react-query'
+import { useResendOtp } from './utils/hooks'
+import { OtpFormValues, OtpSchema } from './utils/schemas'
 
 interface AuthOTPConfirmFormProps {
   email: string

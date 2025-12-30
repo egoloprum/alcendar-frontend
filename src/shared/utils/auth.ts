@@ -1,5 +1,6 @@
 import * as SecureStore from 'expo-secure-store'
 import { Platform } from 'react-native'
+
 import { AuthTokens } from '../types'
 
 const ACCESS_TOKEN_KEY = 'accessToken'

@@ -1,4 +1,3 @@
-import { User } from '@/src/entities/user'
 import {
   createContext,
   Dispatch,
@@ -7,6 +6,8 @@ import {
   useContext,
   useState
 } from 'react'
+
+import { User } from '@/src/entities/user'
 
 type UserSearchContextValue = {
   users: User[] | null

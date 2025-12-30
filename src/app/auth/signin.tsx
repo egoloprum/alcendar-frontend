@@ -1,7 +1,8 @@
-import { AuthGoogleBtn, AuthSigninForm } from '@/src/features/(auth)'
-import { TermsAndConditions } from '@/src/widgets/auth'
 import React from 'react'
 import { View, Text } from 'react-native'
+
+import { AuthGoogleBtn, AuthSigninForm } from '@/src/features/(auth)'
+import { TermsAndConditions } from '@/src/widgets/auth'
 
 const Signin = () => {
   return (

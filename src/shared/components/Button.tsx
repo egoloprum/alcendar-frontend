@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, TouchableOpacity, ActivityIndicator, View } from 'react-native'
 import type { GestureResponderEvent } from 'react-native'
+
 import { cn } from '../utils'
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost'

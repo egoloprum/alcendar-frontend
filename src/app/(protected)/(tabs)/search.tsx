@@ -1,7 +1,8 @@
+import { View } from 'react-native'
+
 import { UserSearchForm } from '@/src/features/(user)'
 import { UserSearchProvider } from '@/src/shared/utils/contexts/userSearchContext'
 import { UserSearchList } from '@/src/widgets/user'
-import { View } from 'react-native'
 
 export default function Tab() {
   return (

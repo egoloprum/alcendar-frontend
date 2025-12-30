@@ -1,8 +1,9 @@
-import { SplashScreen, Stack } from 'expo-router'
 import './global.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useFonts } from 'expo-font'
+import { SplashScreen, Stack } from 'expo-router'
 import { useEffect } from 'react'
+
 import { AuthProvider } from '../shared/utils/contexts'
 
 const queryClient = new QueryClient()

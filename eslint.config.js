@@ -1,8 +1,8 @@
 const { defineConfig } = require('eslint/config')
 const expoConfig = require('eslint-config-expo/flat')
-const prettierPlugin = require('eslint-plugin-prettier')
 const eslintConfigPrettier = require('eslint-config-prettier')
 const eslintPluginBoundaries = require('eslint-plugin-boundaries')
+const prettierPlugin = require('eslint-plugin-prettier')
 const eslintPluginUnusedImports = require('eslint-plugin-unused-imports')
 
 module.exports = defineConfig([
@@ -73,7 +73,7 @@ module.exports = defineConfig([
             { from: ['widgets'], allow: ['entities', 'features', 'shared'] },
             { from: ['features'], allow: ['entities', 'shared'] },
             { from: ['entities'], allow: ['shared', 'entities'] },
-            { from: ['shared'], allow: ['shared'] }
+            { from: ['shared'], allow: ['shared', 'entities'] }
           ]
         }
       ]
@@ -93,7 +93,10 @@ module.exports = defineConfig([
       '*.min.js',
       '*.min.js.map',
       '*.snap',
-      'index.js'
+      'index.js',
+      'eslint.config.js',
+      'metro.config.js',
+      'tailwind.config.js'
     ]
   }
 ])
