@@ -1,15 +1,32 @@
 import { ApiResponse } from '../types'
-import { saveAuthTokens } from './auth'
+import { getAuthTokens, saveAuthTokens } from './auth'
 
-async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+type ApiRequestOptions = RequestInit & {
+  auth?: boolean
+}
+
+async function apiFetch<T>(endpoint: string, options: ApiRequestOptions): Promise<T> {
   const baseURL = process.env.EXPO_PUBLIC_BASE_URL || 'http://localhost:3000/api'
 
-  const response = await fetch(`${baseURL}${endpoint}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(options.headers || {})
+  const { auth, headers, ...fetchOptions } = options
+
+  const finalHeaders = new Headers(headers)
+
+  if (auth) {
+    const { accessToken, refreshToken } = await getAuthTokens()
+
+    if (accessToken) {
+      finalHeaders.set('Authorization', `Bearer ${accessToken}`)
     }
+
+    if (refreshToken) {
+      finalHeaders.set('X-Refresh-Token', refreshToken)
+    }
+  }
+
+  const response = await fetch(`${baseURL}${endpoint}`, {
+    ...fetchOptions,
+    headers: finalHeaders
   })
 
   const newAccessToken = response.headers.get('X-Access-Token')
@@ -29,30 +46,30 @@ async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise
 }
 
 export const api = {
-  get: <T = unknown>(endpoint: string, options?: RequestInit) =>
+  get: <T = unknown>(endpoint: string, options?: ApiRequestOptions) =>
     apiFetch<T>(endpoint, { ...options, method: 'GET' }),
 
-  post: <T = unknown>(endpoint: string, body?: any, options?: RequestInit) =>
+  post: <T = unknown>(endpoint: string, body?: any, options?: ApiRequestOptions) =>
     apiFetch<T>(endpoint, {
       ...options,
       method: 'POST',
       body: JSON.stringify(body)
     }),
 
-  put: <T = unknown>(endpoint: string, body?: any, options?: RequestInit) =>
+  put: <T = unknown>(endpoint: string, body?: any, options?: ApiRequestOptions) =>
     apiFetch<T>(endpoint, {
       ...options,
       method: 'PUT',
       body: JSON.stringify(body)
     }),
 
-  patch: <T = unknown>(endpoint: string, body?: any, options?: RequestInit) =>
+  patch: <T = unknown>(endpoint: string, body?: any, options?: ApiRequestOptions) =>
     apiFetch<T>(endpoint, {
       ...options,
       method: 'PATCH',
       body: JSON.stringify(body)
     }),
 
-  delete: <T = unknown>(endpoint: string, options?: RequestInit) =>
+  delete: <T = unknown>(endpoint: string, options?: ApiRequestOptions) =>
     apiFetch<T>(endpoint, { ...options, method: 'DELETE' })
 }

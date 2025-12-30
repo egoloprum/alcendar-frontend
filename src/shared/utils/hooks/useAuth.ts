@@ -13,14 +13,10 @@ export function useAuth() {
     queryKey: ['auth', 'me'],
     queryFn: async (): Promise<User | null> => {
       const { accessToken, refreshToken } = await getAuthTokens()
-
       if (!accessToken && !refreshToken) return null
 
       const response = await api.get<{ user: User }>('/auth/me', {
-        headers: {
-          Authorization: accessToken ? `Bearer ${accessToken}` : '',
-          'x-refresh-token': refreshToken ?? ''
-        }
+        auth: true
       })
 
       return response.user
