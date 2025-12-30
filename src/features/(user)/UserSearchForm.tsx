@@ -21,10 +21,7 @@ export const UserSearchForm = () => {
   const debouncedSearchTerm = useDebounce(currentSearchTerm, 500)
 
   const { data } = useQuery({
-    queryKey: [
-      debouncedSearchTerm ? 'user-search' : 'user-recent-search',
-      debouncedSearchTerm || 'recent'
-    ],
+    queryKey: ['user-search', debouncedSearchTerm || 'recent'],
     queryFn: () =>
       debouncedSearchTerm ? getSearchUser(debouncedSearchTerm) : getRecentSearchUser(),
     retry: false
