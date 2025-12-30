@@ -24,7 +24,9 @@ export const UserSearchForm = () => {
     queryKey: ['user-search', debouncedSearchTerm || 'recent'],
     queryFn: () =>
       debouncedSearchTerm ? getSearchUser(debouncedSearchTerm) : getRecentSearchUser(),
-    retry: false
+    retry: false,
+    staleTime: debouncedSearchTerm ? 0 : 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000
   })
 
   useEffect(() => {
