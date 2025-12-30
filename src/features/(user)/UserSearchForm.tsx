@@ -3,7 +3,7 @@ import { Search } from 'lucide-react-native'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { getSearchUser } from '@/src/entities/user'
+import { getRecentSearchUser, getSearchUser } from '@/src/entities/user'
 import { Input } from '@/src/shared/components'
 import { useUserSearchContext } from '@/src/shared/utils/contexts'
 import { useDebounce } from '@/src/shared/utils/hooks'
@@ -21,9 +21,12 @@ export const UserSearchForm = () => {
   const debouncedSearchTerm = useDebounce(currentSearchTerm, 500)
 
   const { data } = useQuery({
-    queryKey: ['search-user', debouncedSearchTerm],
-    queryFn: () => getSearchUser(debouncedSearchTerm!),
-    enabled: !!debouncedSearchTerm,
+    queryKey: [
+      debouncedSearchTerm ? 'user-search' : 'user-recent-search',
+      debouncedSearchTerm || 'recent'
+    ],
+    queryFn: () =>
+      debouncedSearchTerm ? getSearchUser(debouncedSearchTerm) : getRecentSearchUser(),
     retry: false
   })
 
