@@ -1,13 +1,9 @@
 import * as SecureStore from 'expo-secure-store'
 import { Platform } from 'react-native'
+import { AuthTokens } from '../types'
 
 const ACCESS_TOKEN_KEY = 'accessToken'
 const REFRESH_TOKEN_KEY = 'refreshToken'
-
-export type AuthTokens = {
-  accessToken: string | null
-  refreshToken: string | null
-}
 
 const webStorage = {
   setItem: async (key: string, value: string) => {

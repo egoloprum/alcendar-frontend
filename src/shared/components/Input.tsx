@@ -70,7 +70,7 @@ export const Input = forwardRef<TextInput, InputProps>(
           {type === 'password' && (
             <TouchableOpacity
               onPress={() => setSecure(!secure)}
-              className="rounded-full px-4"
+              className="aspect-square h-10 w-10 items-center justify-center rounded-full"
               hitSlop={10}>
               {secure ? <Eye size={20} color="#6B7280" /> : <EyeOff size={20} color="#6B7280" />}
             </TouchableOpacity>
