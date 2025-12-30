@@ -3,7 +3,7 @@ import './global.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useFonts } from 'expo-font'
 import { useEffect } from 'react'
-import { AuthProvider } from '../shared/utils'
+import { AuthProvider } from '../shared/utils/contexts'
 
 const queryClient = new QueryClient()
 

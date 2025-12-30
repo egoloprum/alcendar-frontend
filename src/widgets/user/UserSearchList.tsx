@@ -1,9 +1,11 @@
-import { User } from '@/src/entities/user'
 import { UserSearchDeleteBtn } from '@/src/features/(user)'
+import { useUserSearchContext } from '@/src/shared/utils/contexts'
 import { Search } from 'lucide-react-native'
 import { View, Text, ScrollView, FlatList } from 'react-native'
 
-export const UserSearchList = ({ users }: { users: User[] | null }) => {
+export const UserSearchList = () => {
+  const { users, searchParam } = useUserSearchContext()
+
   if (users) {
     return (
       <ScrollView className="flex-1">

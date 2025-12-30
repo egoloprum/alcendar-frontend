@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import { SignupBtn, SigninBtn } from '@/src/features/(auth)'
 import { Redirect } from 'expo-router'
-import { useAuthContext } from '../shared/utils'
+import { useAuthContext } from '../shared/utils/contexts'
 
 export default function Index() {
   const { isAuthenticated, isLoading } = useAuthContext()

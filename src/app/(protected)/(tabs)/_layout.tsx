@@ -1,4 +1,4 @@
-import { useAuthContext } from '@/src/shared/utils'
+import { useAuthContext } from '@/src/shared/utils/contexts'
 import { Link, Redirect, Tabs } from 'expo-router'
 import { Bell, CirclePlus, House, Search, User, Settings } from 'lucide-react-native'
 import React from 'react'

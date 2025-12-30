@@ -1,4 +1,4 @@
-import { useAuthContext } from '@/src/shared/utils'
+import { useAuthContext } from '@/src/shared/utils/contexts'
 import { View, Text } from 'react-native'
 
 export default function Tab() {

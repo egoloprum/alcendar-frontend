@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { api, getAuthTokens } from '../utils'
+import { getAuthTokens } from '../auth'
+import { api } from '../fetch-wrapper'
 
 interface User {
   id: string

@@ -1,4 +1,4 @@
-import { useAuthContext } from '@/src/shared/utils'
+import { useAuthContext } from '@/src/shared/utils/contexts'
 import { Redirect, Stack } from 'expo-router'
 
 export default function AuthLayout() {
