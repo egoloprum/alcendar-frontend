@@ -49,7 +49,7 @@ export const Input = forwardRef<TextInput, InputProps>(
             error ? 'border-red-500' : 'border-gray-300',
             disabled && 'opacity-60'
           )}>
-          {leftElement}
+          {leftElement && <View className="p-2 pl-4">{leftElement}</View>}
 
           <TextInput
             ref={ref}
@@ -59,8 +59,7 @@ export const Input = forwardRef<TextInput, InputProps>(
             secureTextEntry={secure}
             placeholderTextColor="#9CA3AF"
             className={cn(
-              'h-full flex-1 rounded-full p-2 text-base tracking-widest text-gray-900',
-              label && 'px-4',
+              'h-full flex-1 rounded-full p-2 px-4 text-base tracking-widest text-gray-900',
               inputClassName
             )}
             style={{ fontFamily: 'Gliker-Regular' }}
