@@ -1,20 +1,18 @@
-import { useAuth } from '@/src/shared/hooks'
+import { useAuthContext } from '@/src/shared/utils'
 import { Redirect, Stack } from 'expo-router'
-import { Text } from 'react-native'
 
 export default function AuthLayout() {
-  const { user, isLoading } = useAuth()
+  const { isAuthenticated, isLoading } = useAuthContext()
 
-  if (isLoading) {
-    return <Text>Loading...</Text>
-  }
+  if (isLoading) return null
 
-  if (user) {
-    return <Redirect href="/(tabs)" />
+  if (isAuthenticated) {
+    return <Redirect href="/(protected)/(tabs)" />
   }
 
   return (
     <Stack>
+      <Stack.Screen name="/" options={{ headerShown: true, title: 'qweqw' }} />
       <Stack.Screen
         name="signin"
         options={{

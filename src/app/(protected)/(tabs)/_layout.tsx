@@ -1,8 +1,17 @@
-import { Tabs } from 'expo-router'
+import { useAuthContext } from '@/src/shared/utils'
+import { Redirect, Tabs } from 'expo-router'
 import React from 'react'
 import { Text } from 'react-native'
 
 export default function TabsLayout() {
+  const { isAuthenticated, isLoading } = useAuthContext()
+
+  if (isLoading) return null
+
+  if (!isAuthenticated) {
+    return <Redirect href="/" />
+  }
+
   return (
     <Tabs
       screenOptions={{

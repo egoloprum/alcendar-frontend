@@ -1,18 +1,16 @@
 import { View, Text } from 'react-native'
 import { SignupBtn, SigninBtn } from '@/src/features/(auth)'
-import { useAuth } from '../shared/hooks'
 import { Redirect } from 'expo-router'
+import { useAuthContext } from '../shared/utils'
 
 export default function Index() {
-  // const { user, isLoading } = useAuth()
+  const { isAuthenticated, isLoading } = useAuthContext()
 
-  // if (isLoading) {
-  //   return <Text>Loading...</Text>
-  // }
+  if (isLoading) return null
 
-  // if (user) {
-  //   return <Redirect href="/(tabs)" />
-  // }
+  if (isAuthenticated) {
+    return <Redirect href="/(protected)/(tabs)" />
+  }
 
   return (
     <View className="h-full space-y-4 bg-amber-50">
