@@ -30,19 +30,19 @@ export const Button: React.FC<ButtonProps> = ({
   const content = children ?? title
 
   return (
-    <View className="relative">
-      <View className="absolute z-0 h-full w-full translate-x-1 translate-y-1 rounded-full bg-black"></View>
+    <View className="relative w-full">
+      <View className="absolute inset-0 translate-x-1 translate-y-1 rounded-full border-2 bg-gray-800" />
+
       <TouchableOpacity
         activeOpacity={0.9}
         disabled={disabled || loading}
         onPress={onPress}
         className={cn(
-          'z-10 flex-row items-center justify-center rounded-full px-4 py-2.5 active:translate-x-1 active:translate-y-1',
-          variant === 'primary' && 'border-2 bg-[#F87060]',
-          variant === 'secondary' && 'border-2 bg-[#F0F66E]',
-          variant === 'ghost' && 'border-2 bg-[#F0F8EA] text-gray-900',
-          // disabled && 'bg-[#696D7D] translate-x-1 translate-y-1',
-          disabled && 'translate-x-1 translate-y-1 opacity-80',
+          'z-10 w-full flex-row items-center justify-center rounded-full px-4 py-2.5 active:translate-x-1 active:translate-y-1',
+          variant === 'primary' && 'border-2 bg-primary',
+          variant === 'secondary' && 'border-2 bg-secondary',
+          variant === 'ghost' && 'border-2 bg-ghost',
+          disabled && 'translate-x-1 translate-y-1 bg-disabled',
           className
         )}>
         {loading ? (
@@ -50,10 +50,8 @@ export const Button: React.FC<ButtonProps> = ({
         ) : typeof content === 'string' || typeof content === 'number' ? (
           <Text
             className={cn(
-              'text-base font-semibold uppercase tracking-widest',
-              variant === 'primary' && 'text-gray-800',
-              variant === 'secondary' && '',
-              variant === 'ghost' && '',
+              'text-base uppercase tracking-widest text-gray-900',
+              disabled && 'text-gray-100',
               textClassName
             )}
             style={{ fontFamily: 'Gliker-Regular' }}>

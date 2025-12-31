@@ -132,7 +132,7 @@ export const AuthOTPConfirmForm = ({ email }: AuthOTPConfirmFormProps) => {
 
         <Button variant="ghost" disabled={!canResend} onPress={() => resendOtp(email)}>
           <Text
-            className="text-base font-semibold uppercase tracking-widest"
+            className="text-base uppercase tracking-widest"
             style={{ fontFamily: 'Gliker-Regular' }}>
             Resend code {!canResend && `in 00:${String(secondsLeft).padStart(2, '0')}`}
           </Text>

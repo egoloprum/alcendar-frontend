@@ -1,3 +1,4 @@
+import { Link } from 'expo-router'
 import { Search } from 'lucide-react-native'
 import { View, Text, ScrollView, FlatList } from 'react-native'
 
@@ -13,13 +14,15 @@ export const UserSearchList = () => {
         <FlatList
           data={users}
           renderItem={({ item }) => (
-            <View className="flex-row items-center gap-4 p-4 px-6 hover:bg-amber-100">
+            <Link
+              href={`/(protected)/users/${item.id}`}
+              className="flex flex-row items-center gap-4 p-4 px-6 hover:bg-amber-100">
               <View className="h-10 w-10 rounded-full border"></View>
               <Text className="text-base tracking-widest" style={{ fontFamily: 'Gliker-Regular' }}>
                 {item.username}
               </Text>
               <UserSearchDeleteBtn userId={item.id} />
-            </View>
+            </Link>
           )}
         />
       </ScrollView>

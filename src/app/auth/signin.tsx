@@ -6,10 +6,10 @@ import { TermsAndConditions } from '@/src/widgets/auth'
 
 const Signin = () => {
   return (
-    <View className="flex h-full w-full flex-col gap-4 bg-amber-50 p-4 px-6">
+    <View className="flex h-full w-full flex-col gap-4 p-4 px-6">
       <Text
-        className="my-4 text-2xl font-bold uppercase tracking-widest"
-        style={{ fontFamily: 'Gliker-Regular' }}>
+        className="my-4 text-3xl uppercase tracking-widest"
+        style={{ fontFamily: 'Gliker-Bold' }}>
         Sign in to Alcendar
       </Text>
       <AuthSigninForm />

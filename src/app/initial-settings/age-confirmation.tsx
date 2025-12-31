@@ -12,7 +12,7 @@ const AgeConfirmation = () => {
           Accept Alcendar&apos;s Terms & Review Privacy Notice
         </Text>
       </View>
-      <Text className="font-normal" style={{ fontFamily: 'Gliker-Regular' }}>
+      <Text className="" style={{ fontFamily: 'Gliker-Regular' }}>
         By selecting &quot;I agree&quot; below, i have reviewed and agree to the Terms of Use and
         acknowledge the Privacy Notice. I am at least 18 years of age.
       </Text>

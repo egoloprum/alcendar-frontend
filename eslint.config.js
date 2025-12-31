@@ -96,7 +96,8 @@ module.exports = defineConfig([
       'index.js',
       'eslint.config.js',
       'metro.config.js',
-      'tailwind.config.js'
+      'tailwind.config.js',
+      'expo-env.d.ts'
     ]
   }
 ])
