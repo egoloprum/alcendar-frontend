@@ -128,11 +128,17 @@ const DefaultTheme: Theme = {
 const DarkTheme: Theme = {
   dark: true,
   colors: {
+    // primary: '#F87060',
+    // background: '#0F172A',
+    // card: '#1E293B',
+    // text: '#F8FAFC',
+    // border: '#334155',
+    // notification: '#F87060',
     primary: '#F87060',
-    background: '#0F172A',
-    card: '#1E293B',
-    text: '#F8FAFC',
-    border: '#334155',
+    background: '#fef3c7',
+    card: '#fef3c7',
+    text: '#1F2937',
+    border: 'oklch(21% 0.034 264.665)',
     notification: '#F87060'
   },
   fonts

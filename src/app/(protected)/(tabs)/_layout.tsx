@@ -1,78 +1,53 @@
-import { Link, Redirect, Tabs } from 'expo-router'
-import { Bell, CirclePlus, House, Search, User, Settings } from 'lucide-react-native'
-import React from 'react'
-import { Text } from 'react-native'
+import { Tabs, Link } from 'expo-router'
+import { Bell, Settings } from 'lucide-react-native'
 
-import { useAuthContext } from '@/src/shared/utils/contexts'
+import { HeaderBar, NavigationBar } from '@/src/shared/components'
 
 export default function TabsLayout() {
-  const { isAuthenticated, isLoading } = useAuthContext()
-
-  if (isLoading) return null
-
-  if (!isAuthenticated) {
-    return <Redirect href="/" />
-  }
-
   return (
-    <Tabs
-      screenOptions={{
-        // tabBarActiveTintColor: 'blue',
-        // tabBarInactiveTintColor: 'gray',
-        tabBarShowLabel: true,
-        headerShown: true
-      }}>
+    <Tabs screenOptions={{ headerShown: true }} tabBar={props => <NavigationBar {...props} />}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: 20 }}>
-              <House />
-            </Text>
-          ),
-          headerRight: () => (
-            <Link href="/notifications" className="mr-4">
-              <Bell />
-            </Link>
+          header: () => (
+            <HeaderBar
+              title="Home"
+              right={
+                <Link href="/notifications">
+                  <Bell size={20} />
+                </Link>
+              }
+            />
           )
         }}
       />
+
       <Tabs.Screen
         name="search"
         options={{
-          title: 'Search',
-          tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: 20 }}>
-              <Search />
-            </Text>
-          )
+          header: () => <HeaderBar title="Search" />
         }}
       />
+
       <Tabs.Screen
         name="create"
         options={{
-          title: 'New',
-          tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: 20 }}>
-              <CirclePlus />
-            </Text>
-          )
+          header: () => <HeaderBar title="New" />
         }}
       />
+
       <Tabs.Screen
         name="user"
         options={{
-          title: 'User',
-          tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: 20 }}>
-              <User />
-            </Text>
-          ),
-          headerRight: () => (
-            <Link href="/settings" className="mr-4">
-              <Settings />
-            </Link>
+          header: () => (
+            <HeaderBar
+              title="User"
+              right={
+                <Link href="/settings">
+                  <Settings size={20} />
+                </Link>
+              }
+            />
           )
         }}
       />

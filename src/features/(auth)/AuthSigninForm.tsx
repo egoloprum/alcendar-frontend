@@ -32,7 +32,7 @@ export const AuthSigninForm = () => {
     mutation.mutate(data, {
       onSuccess: async () => {
         await queryClient.invalidateQueries({ queryKey: ['auth', 'me'] })
-        router.replace('/')
+        router.replace('/(protected)/(tabs)')
       }
     })
   }

@@ -1,5 +1,6 @@
 import { Redirect, Stack } from 'expo-router'
 
+import { HeaderBar } from '@/src/shared/components'
 import { useAuthContext } from '@/src/shared/utils/contexts'
 
 export default function AuthLayout() {
@@ -16,14 +17,27 @@ export default function AuthLayout() {
       <Stack.Screen
         name="signin"
         options={{
-          headerShown: true,
-          title: ''
-          // headerRight: () => <Text>qwe</Text>
+          header: () => <HeaderBar title="Sign in" showBack={true} />
         }}
       />
-      <Stack.Screen name="signup" options={{ headerShown: true, title: '' }} />
-      <Stack.Screen name="require-confirmation" options={{ headerShown: true, title: '' }} />
-      <Stack.Screen name="verify-confirmation" options={{ headerShown: true, title: '' }} />
+      <Stack.Screen
+        name="signup"
+        options={{
+          header: () => <HeaderBar title="Sign up" showBack={true} />
+        }}
+      />
+      <Stack.Screen
+        name="require-confirmation"
+        options={{
+          header: () => <HeaderBar title="" showBack={true} />
+        }}
+      />
+      <Stack.Screen
+        name="verify-confirmation"
+        options={{
+          header: () => <HeaderBar title="" showBack={true} />
+        }}
+      />
     </Stack>
   )
 }

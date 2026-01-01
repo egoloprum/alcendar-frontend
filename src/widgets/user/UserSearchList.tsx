@@ -6,7 +6,7 @@ import { UserSearchDeleteBtn } from '@/src/features/(user)'
 import { useUserSearchContext } from '@/src/shared/utils/contexts'
 
 export const UserSearchList = () => {
-  const { users, searchParam } = useUserSearchContext()
+  const { users } = useUserSearchContext()
 
   if (users) {
     return (
