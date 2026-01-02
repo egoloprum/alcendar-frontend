@@ -20,7 +20,7 @@ const Signin = () => {
     <Container>
       <Text
         className="my-4 text-3xl uppercase tracking-widest"
-        style={{ fontFamily: 'Gliker-Bold' }}>
+        style={{ fontFamily: 'Gliker-Regular' }}>
         Sign in to Alcendar
       </Text>
       <AuthSigninForm />

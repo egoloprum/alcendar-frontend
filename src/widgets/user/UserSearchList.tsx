@@ -1,6 +1,6 @@
 import { Link } from 'expo-router'
 import { Search } from 'lucide-react-native'
-import { View, Text, ScrollView, FlatList } from 'react-native'
+import { View, Text, ScrollView, FlatList, Pressable } from 'react-native'
 
 import { UserSearchDeleteBtn } from '@/src/features/(user)'
 import { useUserSearchContext } from '@/src/shared/utils/contexts'
@@ -14,14 +14,17 @@ export const UserSearchList = () => {
         <FlatList
           data={users}
           renderItem={({ item }) => (
-            <Link
-              href={`/users/${item.id}`}
-              className="flex flex-row items-center gap-4 p-4 px-0 hover:bg-amber-100">
-              <View className="h-10 w-10 rounded-full border"></View>
-              <Text className="text-base tracking-widest" style={{ fontFamily: 'Gliker-Regular' }}>
-                {item.username}
-              </Text>
-              <UserSearchDeleteBtn userId={item.id} />
+            <Link href={`/users/${item.id}`} asChild>
+              <Pressable className="flex flex-row items-center gap-4 p-4 px-0">
+                <View className="aspect-square h-10 w-10 rounded-full border"></View>
+                <Text
+                  className="flex-1 text-base tracking-widest"
+                  style={{ fontFamily: 'Gliker-Regular' }}
+                  numberOfLines={1}>
+                  {item.username}
+                </Text>
+                <UserSearchDeleteBtn userId={item.id} />
+              </Pressable>
             </Link>
           )}
         />

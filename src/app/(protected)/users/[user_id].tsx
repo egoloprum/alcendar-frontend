@@ -9,7 +9,7 @@ export default function Page() {
   const { user_id } = useLocalSearchParams()
 
   return (
-    <Container>
+    <Container className="">
       <View className="gap-4 rounded-xl border-2 border-gray-700 p-4">
         <View className="flex-row items-center gap-6">
           <View className="h-20 w-20 rounded-full border-2"></View>
@@ -38,8 +38,10 @@ export default function Page() {
       </View>
 
       <View className="flex-row flex-wrap gap-4">
-        <Button textClassName="text-xs">Follow</Button>
-        <Button variant="secondary" textClassName="text-xs">
+        <Button textClassName="text-xs" className="w-fit">
+          Follow
+        </Button>
+        <Button variant="secondary" textClassName="text-xs" className="w-fit">
           Share QR code
         </Button>
       </View>
@@ -54,17 +56,19 @@ export default function Page() {
       <View className="gap-6 rounded-xl border-2 p-4">
         {/* Horizontal scroll view for filters */}
         <View className="-my-2 flex-row gap-2 overflow-x-scroll py-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <Button textClassName="text-xs">Water</Button>
-          <Button textClassName="text-xs" variant="ghost">
+          <Button textClassName="text-xs" className="w-fit">
+            Water
+          </Button>
+          <Button textClassName="text-xs" variant="ghost" className="w-fit">
             Beer
           </Button>
-          <Button textClassName="text-xs" variant="ghost">
+          <Button textClassName="text-xs" variant="ghost" className="w-fit">
             Wine
           </Button>
-          <Button textClassName="text-xs" variant="ghost">
+          <Button textClassName="text-xs" variant="ghost" className="w-fit">
             Vodka
           </Button>
-          <Button textClassName="text-xs" variant="ghost">
+          <Button textClassName="text-xs" variant="ghost" className="w-fit">
             Whiskey
           </Button>
         </View>

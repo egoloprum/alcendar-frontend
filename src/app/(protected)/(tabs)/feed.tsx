@@ -5,13 +5,15 @@ import { Container } from '@/src/shared/components'
 import { useAuthContext } from '@/src/shared/utils/contexts'
 
 export default function Tab() {
-  const { isAuthenticated, isLoading } = useAuthContext()
+  const { isAuthenticated, isLoading, user } = useAuthContext()
 
   if (isLoading) return null
 
   if (!isAuthenticated) {
     return <Redirect href="/" />
   }
+
+  console.log({ user })
 
   return (
     <Container>

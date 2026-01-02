@@ -1,6 +1,6 @@
 import { useHeaderHeight } from '@react-navigation/elements'
 import React, { ReactNode } from 'react'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 
 import { cn } from '../utils'
 
@@ -13,10 +13,12 @@ export const Container = ({ children, className }: ContainerProps) => {
   const headerHeight = useHeaderHeight()
 
   return (
-    <View
-      className={cn('flex h-full w-full flex-col gap-4 overflow-y-auto p-4', className)}
-      style={{ paddingTop: headerHeight }}>
-      {children}
-    </View>
+    <ScrollView>
+      <View
+        className={cn('flex h-full w-full flex-col gap-4 overflow-y-auto p-4', className)}
+        style={{ paddingTop: headerHeight }}>
+        {children}
+      </View>
+    </ScrollView>
   )
 }

@@ -74,7 +74,10 @@ export const AuthSignupForm = () => {
         </Text>
       )}
 
-      <Button loading={mutation.isPending} onPress={handleSubmit(onSubmit)}>
+      <Button
+        loading={mutation.isPending}
+        disabled={mutation.isPending}
+        onPress={handleSubmit(onSubmit)}>
         Continue
       </Button>
     </View>

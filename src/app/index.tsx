@@ -6,13 +6,15 @@ import { SignupBtn, SigninBtn } from '@/src/features/(auth)'
 import { useAuthContext } from '../shared/utils/contexts'
 
 export default function Index() {
-  const { isAuthenticated, isLoading } = useAuthContext()
+  const { isAuthenticated, isLoading, user } = useAuthContext()
 
   if (isLoading) return null
 
   if (isAuthenticated) {
     return <Redirect href="/feed" />
   }
+
+  console.log({ user })
 
   return (
     <View className="h-full space-y-4">

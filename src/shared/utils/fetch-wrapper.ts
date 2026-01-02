@@ -46,30 +46,30 @@ async function apiFetch<T>(endpoint: string, options: ApiRequestOptions): Promis
 }
 
 export const api = {
-  get: <T = unknown>(endpoint: string, options?: ApiRequestOptions) =>
+  get: <T>(endpoint: string, options?: ApiRequestOptions) =>
     apiFetch<T>(endpoint, { ...options, method: 'GET' }),
 
-  post: <T = unknown>(endpoint: string, body?: any, options?: ApiRequestOptions) =>
+  post: <T>(endpoint: string, body?: any, options?: ApiRequestOptions) =>
     apiFetch<T>(endpoint, {
       ...options,
       method: 'POST',
       body: JSON.stringify(body)
     }),
 
-  put: <T = unknown>(endpoint: string, body?: any, options?: ApiRequestOptions) =>
+  put: <T>(endpoint: string, body?: any, options?: ApiRequestOptions) =>
     apiFetch<T>(endpoint, {
       ...options,
       method: 'PUT',
       body: JSON.stringify(body)
     }),
 
-  patch: <T = unknown>(endpoint: string, body?: any, options?: ApiRequestOptions) =>
+  patch: <T>(endpoint: string, body?: any, options?: ApiRequestOptions) =>
     apiFetch<T>(endpoint, {
       ...options,
       method: 'PATCH',
       body: JSON.stringify(body)
     }),
 
-  delete: <T = unknown>(endpoint: string, options?: ApiRequestOptions) =>
+  delete: <T>(endpoint: string, options?: ApiRequestOptions) =>
     apiFetch<T>(endpoint, { ...options, method: 'DELETE' })
 }
