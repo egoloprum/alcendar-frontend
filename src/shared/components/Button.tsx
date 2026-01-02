@@ -30,7 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
   const content = children ?? title
 
   return (
-    <View className="relative w-full">
+    <View className="relative">
       <View className="absolute inset-0 translate-x-1 translate-y-1 rounded-full border-2 bg-gray-800" />
 
       <TouchableOpacity

@@ -9,6 +9,7 @@ export default function SettingsLayout() {
       <Stack.Screen
         name="index"
         options={{
+          headerTransparent: true,
           header: () => <HeaderBar title="Settings" showBack={true} />
         }}
       />

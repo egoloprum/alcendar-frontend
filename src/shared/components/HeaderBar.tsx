@@ -12,7 +12,7 @@ export function HeaderBar({ title, right, showBack = true }: HeaderBarProps) {
   const navigation = useNavigation()
 
   return (
-    <View className="px-4 pt-4">
+    <View className="bg-transparent p-4">
       <View className="relative">
         {/* shadow layer */}
         <View className="absolute inset-0 translate-x-1 translate-y-1 rounded-full border-2 bg-gray-800" />

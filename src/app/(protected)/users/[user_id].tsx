@@ -3,13 +3,13 @@ import { ChevronRight } from 'lucide-react-native'
 import React from 'react'
 import { View, Text } from 'react-native'
 
-import { Button } from '@/src/shared/components'
+import { Button, Container } from '@/src/shared/components'
 
 export default function Page() {
   const { user_id } = useLocalSearchParams()
 
   return (
-    <View className="flex h-full w-full flex-col gap-6 overflow-y-auto p-4 px-2">
+    <Container>
       <View className="gap-4 rounded-xl border-2 border-gray-700 p-4">
         <View className="flex-row items-center gap-6">
           <View className="h-20 w-20 rounded-full border-2"></View>
@@ -148,6 +148,6 @@ export default function Page() {
           <ChevronRight />
         </Link>
       </View>
-    </View>
+    </Container>
   )
 }

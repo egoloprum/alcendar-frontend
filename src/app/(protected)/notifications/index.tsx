@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
+
+import { Container } from '@/src/shared/components'
 
 export default function Index() {
   return (
-    <View>
+    <Container>
       <Text>Index</Text>
-    </View>
+    </Container>
   )
 }

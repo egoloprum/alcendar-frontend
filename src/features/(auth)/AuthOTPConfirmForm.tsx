@@ -104,10 +104,9 @@ export const AuthOTPConfirmForm = ({ email }: AuthOTPConfirmFormProps) => {
                 value={digit}
                 keyboardType="number-pad"
                 maxLength={1}
-                error={errors.token?.message}
                 onChangeText={v => handleChange(v, index)}
                 onKeyPress={({ nativeEvent }) => handleKeyPress(nativeEvent.key, index)}
-                inputClassName="text-center max-h-10 max-w-10 aspect-square"
+                inputClassName="text-center max-h-10 max-w-10 aspect-square p-0"
                 containerClassName="aspect-square max-w-11"
                 textContentType="oneTimeCode"
                 autoComplete="sms-otp"

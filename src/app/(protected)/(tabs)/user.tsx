@@ -1,6 +1,7 @@
 import { Redirect } from 'expo-router'
 import { View, Text } from 'react-native'
 
+import { Container } from '@/src/shared/components'
 import { useAuthContext } from '@/src/shared/utils/contexts'
 
 export default function Tab() {
@@ -13,10 +14,10 @@ export default function Tab() {
   }
 
   return (
-    <View className="flex h-full w-full flex-col gap-4 p-4 px-6">
+    <Container>
       <View>
         <Text>{user?.id}</Text>
       </View>
-    </View>
+    </Container>
   )
 }

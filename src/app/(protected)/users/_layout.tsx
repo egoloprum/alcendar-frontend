@@ -10,6 +10,7 @@ export default function UsersLayout() {
       <Stack.Screen
         name="[user_id]"
         options={{
+          headerTransparent: true,
           header: () => (
             <HeaderBar
               title="User"

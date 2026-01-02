@@ -8,25 +8,29 @@ export default function AuthLayout() {
       <Stack.Screen
         name="signin"
         options={{
+          headerTransparent: true,
           header: () => <HeaderBar title="Sign in" showBack={true} />
         }}
       />
       <Stack.Screen
         name="signup"
         options={{
+          headerTransparent: true,
           header: () => <HeaderBar title="Sign up" showBack={true} />
         }}
       />
       <Stack.Screen
         name="require-confirmation"
         options={{
+          headerTransparent: true,
           header: () => <HeaderBar title="" showBack={true} />
         }}
       />
       <Stack.Screen
         name="verify-confirmation"
         options={{
-          header: () => <HeaderBar title="" showBack={true} />
+          headerTransparent: true,
+          header: () => <HeaderBar title="Verify your account" />
         }}
       />
     </Stack>

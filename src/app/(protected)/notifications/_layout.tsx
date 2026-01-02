@@ -9,6 +9,7 @@ export default function NotificationsLayout() {
       <Stack.Screen
         name="index"
         options={{
+          headerTransparent: true,
           header: () => <HeaderBar title="Notifications" showBack={true} />
         }}
       />

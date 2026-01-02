@@ -19,14 +19,10 @@ export const AuthSignoutBtn = () => {
     },
     onSettled: () => {
       queryClient.invalidateQueries()
-    },
-    onError: error => {
-      console.error('Sign out failed:', error)
     }
   })
 
   const handlePress = () => {
-    console.log('sign out pressed')
     mutation.mutate()
   }
 

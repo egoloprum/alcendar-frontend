@@ -9,6 +9,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="feed"
         options={{
+          headerTransparent: true,
           header: () => (
             <HeaderBar
               title="Home"
@@ -25,6 +26,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="search"
         options={{
+          headerTransparent: true,
           header: () => <HeaderBar title="Search" />
         }}
       />
@@ -32,6 +34,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="create"
         options={{
+          headerTransparent: true,
           header: () => <HeaderBar title="New" />
         }}
       />
@@ -39,6 +42,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="user"
         options={{
+          headerTransparent: true,
           header: () => (
             <HeaderBar
               title="User"
