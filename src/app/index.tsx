@@ -14,8 +14,6 @@ export default function Index() {
     return <Redirect href="/feed" />
   }
 
-  console.log({ user })
-
   return (
     <View className="h-full space-y-4">
       <View className="h-[36rem] w-full border p-4"></View>

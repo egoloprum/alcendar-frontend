@@ -15,7 +15,7 @@ export default function TabsLayout() {
               title="Home"
               right={
                 <Link href="/notifications">
-                  <Bell size={20} />
+                  <Bell size={20} color="white" />
                 </Link>
               }
             />
@@ -48,7 +48,7 @@ export default function TabsLayout() {
               title="User"
               right={
                 <Link href="/settings">
-                  <Settings size={20} />
+                  <Settings size={20} color="white" />
                 </Link>
               }
             />

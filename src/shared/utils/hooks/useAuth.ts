@@ -15,15 +15,9 @@ export function useAuth() {
       const { accessToken, refreshToken } = await getAuthTokens()
       if (!accessToken && !refreshToken) return null
 
-      // console.log({ accessToken, refreshToken })
-
       const response = await api.get<{ user: User }>('/auth/me', {
         auth: true
       })
-
-      console.log('hello from useAuth')
-
-      console.log({ response })
 
       return response.user
     },

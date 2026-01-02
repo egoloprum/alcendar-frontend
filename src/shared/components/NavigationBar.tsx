@@ -46,7 +46,18 @@ export function NavigationBar({ state, descriptors, navigation }: BottomTabBarPr
                   className={cn(
                     'w-full flex-row items-center rounded-full px-4 py-2',
                     isFocused ? 'bg-gray-100' : 'bg-transparent'
-                  )}>
+                  )}
+                  style={[
+                    {
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      borderRadius: 9999,
+                      paddingHorizontal: 16,
+                      paddingVertical: 8,
+                      width: '100%'
+                    },
+                    isFocused && { backgroundColor: '#f3f4f6' }
+                  ]}>
                   {getIcon(route.name, isFocused ? '#111827' : '#ffffff')}
 
                   <Animated.Text

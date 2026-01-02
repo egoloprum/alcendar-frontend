@@ -13,8 +13,6 @@ export default function Tab() {
     return <Redirect href="/" />
   }
 
-  console.log({ user })
-
   return (
     <Container>
       <Text>Tab Home</Text>
