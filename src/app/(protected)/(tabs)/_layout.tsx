@@ -7,7 +7,7 @@ export default function TabsLayout() {
   return (
     <Tabs screenOptions={{ headerShown: true }} tabBar={props => <NavigationBar {...props} />}>
       <Tabs.Screen
-        name="index"
+        name="feed"
         options={{
           header: () => (
             <HeaderBar

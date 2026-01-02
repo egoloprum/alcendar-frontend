@@ -15,7 +15,7 @@ export const UserSearchList = () => {
           data={users}
           renderItem={({ item }) => (
             <Link
-              href={`/(protected)/users/${item.id}`}
+              href={`/users/${item.id}`}
               className="flex flex-row items-center gap-4 p-4 px-6 hover:bg-amber-100">
               <View className="h-10 w-10 rounded-full border"></View>
               <Text className="text-base tracking-widest" style={{ fontFamily: 'Gliker-Regular' }}>

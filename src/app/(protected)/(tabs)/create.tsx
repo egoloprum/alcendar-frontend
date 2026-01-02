@@ -1,6 +1,17 @@
+import { Redirect } from 'expo-router'
 import { View, Text, StyleSheet } from 'react-native'
 
+import { useAuthContext } from '@/src/shared/utils/contexts'
+
 export default function Tab() {
+  const { isAuthenticated, isLoading, user } = useAuthContext()
+
+  if (isLoading) return null
+
+  if (!isAuthenticated) {
+    return <Redirect href="/" />
+  }
+
   return (
     <View style={styles.container}>
       <Text>Tab Create</Text>

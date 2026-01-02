@@ -1,17 +1,8 @@
-import { Redirect, Stack } from 'expo-router'
+import { Stack } from 'expo-router'
 
 import { HeaderBar } from '@/src/shared/components'
-import { useAuthContext } from '@/src/shared/utils/contexts'
 
 export default function AuthLayout() {
-  const { isAuthenticated, isLoading } = useAuthContext()
-
-  if (isLoading) return null
-
-  if (isAuthenticated) {
-    return <Redirect href="/(protected)/(tabs)" />
-  }
-
   return (
     <Stack>
       <Stack.Screen

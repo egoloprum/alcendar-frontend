@@ -9,7 +9,7 @@ export async function signupUser(payload: { email: string; password: string }) {
 }
 
 export async function signoutUser() {
-  return api.get('/auth/logout')
+  return api.get('/auth/signout')
 }
 
 export async function refreshToken() {

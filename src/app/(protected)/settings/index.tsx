@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
+
+import { AuthSignoutBtn } from '@/src/features/(auth)'
 
 export default function Index() {
   return (
-    <View>
-      <Text>Index</Text>
+    <View className="flex h-full w-full flex-col gap-4 p-4">
+      <AuthSignoutBtn />
     </View>
   )
 }
